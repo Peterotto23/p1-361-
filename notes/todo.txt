@@ -1,0 +1,17 @@
+understand existing test cases and what theyre looking for
+
+write more test cases that do weirder shit
+
+write any helper/debugging methods (e.g. the toString for DFA maybe)
+
+start implementing DFAState
+    - make sure the concrete class we use to implement states will work for 
+    what we need it to do
+    - TDD and pray.
+
+start implementing DFA
+    - make sure tests for DFA state are already working properly
+    - instance variables should be initialized with OOP in mind!
+    - `accepts()` seems like its gonna be where the magic happens, 
+    try to keep in mind how DFAState was implemented
+    

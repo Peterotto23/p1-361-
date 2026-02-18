@@ -1,0 +1,8 @@
+pdf mentions we need to implement DFA states (Q) with some class that implements java.util.Set
+    - looking through all classes (on javadoc) that impl Set, 
+    found that the one we should prob use is LinkedHashSet, since its the 
+    only one that maintains ordering within the set, which is a requirement
+    of implementing how Sigma are stored.
+pdf also mentions transition function needs to be implemented with class that implements java.util.Map
+    - seems like LinkedHashMap would work, not entirely sure it matters
+    all that much anyway. 
