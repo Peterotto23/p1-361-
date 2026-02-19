@@ -1,6 +1,8 @@
 package fa.dfa;
 
 import java.util.HashMap;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import fa.State;
 
@@ -22,11 +24,17 @@ public class DFAState extends fa.State {
          *  if there are any existing mappings from this state to any other
          *  state given the same Σ. 
          */
-        Character c = this.transitions.get(toState);
 
-        if(c == onSymb) {
-            return false;
+        // Checking that we dont map two different states to the same symbol
+        for(Entry<String, Character> c : this.transitions.entrySet()){
+            if(c.getValue() == onSymb){
+                if(!c.getKey().equals(toState)){
+                    return false;
+                }
+            }
         }
+
+        
         this.transitions.put(toState, onSymb);
         return true;
     }
