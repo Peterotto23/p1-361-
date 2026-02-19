@@ -34,9 +34,20 @@ public class DFAState extends fa.State {
             }
         }
 
-        
         this.transitions.put(toState, onSymb);
         return true;
     }
     
+    /* Implementing this method is what finally
+    made me realize that I've stored toState and onSymb
+    backwards in the HashMap and everything wouldve
+    been so much easier if i didnt 😅 */
+    public String getTransition(Character c){
+        for(Entry<String, Character> entry : this.transitions.entrySet()) {
+            if(entry.getValue().equals(c)) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
 }

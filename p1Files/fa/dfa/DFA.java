@@ -1,69 +1,139 @@
 package fa.dfa;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import fa.State;
 
 public class DFA implements DFAInterface {
+    private LinkedHashSet<DFAState> states;
+    private LinkedHashSet<Character> sigmas;
+    private DFAState startState;
+    private LinkedHashSet<DFAState> finalStates;
+
+    public DFA() {
+        this.states = new LinkedHashSet<>();
+        this.sigmas = new LinkedHashSet<>();
+        this.finalStates = new LinkedHashSet<>();
+    }
 
     @Override
     public boolean addState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addState'");
+        if (getState(name) == null) {
+            this.states.add(new DFAState(name));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean setFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFinal'");
+        DFAState state = getState(name);
+        
+        if (state == null) {
+            return false;
+        } else {
+            this.finalStates.add(state);
+            return true;
+        }
     }
 
     @Override
     public boolean setStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStart'");
+        DFAState state = getState(name);
+        
+        if (state != null) {
+            this.startState = state;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void addSigma(char symbol) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addSigma'");
+        this.sigmas.add(symbol);
     }
 
     @Override
     public boolean accepts(String s) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'accepts'");
+        char[] chars = s.toCharArray();
+        DFAState currState = this.startState;
+        
+        for (int i = 0; i < chars.length; i++) {
+            currState = getState(currState.getTransition(chars[i]));
+            if (currState == null) {
+                return false;
+            }
+        }
+        if (!this.finalStates.contains(currState)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Set<Character> getSigma() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSigma'");
+        return sigmas;
     }
 
     @Override
-    public State getState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getState'");
+    public DFAState getState(String name) {
+        for (DFAState state : this.states) {
+            if (state.getName().equals(name)) {
+                return state;
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean isFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isFinal'");
+        return this.finalStates.contains(getState(name));
     }
 
     @Override
     public boolean isStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isStart'");
+        return this.startState.getName().equals(name);
     }
 
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addTransition'");
+        DFAState fState = getState(fromState);
+        DFAState tState = getState(toState);
+        
+        if (fState == null || tState == null) {
+            return false;
+        }
+        if (!this.sigmas.contains(onSymb)) {
+            return false;
+        }
+        return fState.addTransition(toState, onSymb);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Q = {").append(formattedSet(this.states.toString())).append("}\n")
+                .append("Sigma = {").append(formattedSet(this.sigmas.toString())).append("}\n")
+                .append("delta tbd\n")
+                .append("q0 = ").append(this.startState.getName()).append("\n")
+                .append("F = {").append(formattedSet(this.finalStates.toString())).append("}\n");
+        return sb.toString();
+    }
+
+    private String formattedSet(String str) {
+        return str.replace("[", "")
+                .replace(",", "")
+                .replace("]", "");
+    }
+
+    private String generateDelta() {
+        StringBuilder sb = new StringBuilder();
+
+        return sb.toString();
     }
 
     @Override
@@ -71,5 +141,4 @@ public class DFA implements DFAInterface {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'swap'");
     }
-
 }
