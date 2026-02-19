@@ -332,7 +332,8 @@ public void test3_2() {
 	assertFalse(dfa.isFinal("B"));
 	assertEquals(dfa.getSigma(), Set.of('2','1'));
 
-	System.out.println("dfa3 correctness pass");
+	System.out.println("dfa3 correct\n" + //
+				"ness pass");
 }
 
 @Test
@@ -405,5 +406,39 @@ public void test3_6() {
 	
 	System.out.println("dfa3Swap accept pass");
 }
+
+//------------------- dfa3 tests ----------------------//
+private DFA dfa4() {
+	DFA dfa4 = new DFA();
+	dfa4.addSigma('0');
+	dfa4.addSigma('1');
+
+	assertTrue(dfa4.addState("a"));
+	assertTrue(dfa4.setStart("a"));
+
+	assertTrue(dfa4.addState("b"));
+	assertTrue(dfa4.addState("c"));
+	assertTrue(dfa4.addState("d"));
+	assertTrue(dfa4.setFinal("d"));
+
+	assertTrue(dfa4.addTransition("a", "a", '0'));
+	assertTrue(dfa4.addTransition("a", "b", '1'));
 	
+	assertTrue(dfa4.addTransition("b", "c", '0'));
+	assertTrue(dfa4.addTransition("b", "d", '1'));
+	
+	assertTrue(dfa4.addTransition("d", "c", '1'));
+	assertTrue(dfa4.addTransition("d", "d", '0'));
+	
+	assertTrue(dfa4.addTransition("c", "a", '0'));
+	assertTrue(dfa4.addTransition("c", "b", '1'));
+	
+	assertFalse(dfa4.addTransition("a", "c", '1'));
+	assertFalse(dfa4.addTransition("b", "c", '1'));
+	
+	return dfa4;
 }
+
+
+}
+
