@@ -1,13 +1,9 @@
 package fa.dfa;
 
 import java.util.HashMap;
-import java.util.Set;
-import java.util.Map.Entry;
-
-import fa.State;
 
 public class DFAState extends fa.State {
-    private HashMap<String, Character> transitions;
+    private HashMap<Character, String> transitions;
     
     public DFAState(String name) {
         super(name);
@@ -26,15 +22,12 @@ public class DFAState extends fa.State {
          */
 
         // Checking that we dont map two different states to the same symbol
-        for(Entry<String, Character> c : this.transitions.entrySet()){
-            if(c.getValue() == onSymb){
-                if(!c.getKey().equals(toState)){
-                    return false;
-                }
+        if(this.transitions.containsKey(onSymb)) {
+            if(!this.transitions.get(onSymb).equals(toState)){
+                return false;
             }
-        }
-
-        this.transitions.put(toState, onSymb);
+        } 
+        this.transitions.put(onSymb, toState);
         return true;
     }
     
@@ -43,11 +36,6 @@ public class DFAState extends fa.State {
     backwards in the HashMap and everything wouldve
     been so much easier if i didnt 😅 */
     public String getTransition(Character c){
-        for(Entry<String, Character> entry : this.transitions.entrySet()) {
-            if(entry.getValue().equals(c)) {
-                return entry.getKey();
-            }
-        }
-        return null;
+        return this.transitions.get(c);
     }
 }
