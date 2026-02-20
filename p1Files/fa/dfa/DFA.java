@@ -5,6 +5,12 @@ import java.util.Set;
 
 import fa.State;
 
+/**
+ * @author Michael Murphy
+ * DFA represents a deterministic finite automaton. 
+ * It uses a LinkedHashSet to store states and sigmas, 
+ * and a simple reference to store the start state.
+ */
 public class DFA implements DFAInterface {
     private LinkedHashSet<DFAState> states;
     private LinkedHashSet<Character> sigmas;

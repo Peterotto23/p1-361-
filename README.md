@@ -98,6 +98,9 @@ SOURCES:
 
  Rubber Ducky Method
 
+ AI USAGE:
+  Github Copilot used for class javadoc summaries.
+
 ----------------------------------------------------------------------------
 
 
