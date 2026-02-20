@@ -2,6 +2,11 @@ package fa.dfa;
 
 import java.util.HashMap;
 
+/**
+ * @author Michael Murphy
+ * DFAState represents a single state in a DFA.
+ * It extends the State class and uses a simple Hashmap to store sigma->state pairs.
+ */
 public class DFAState extends fa.State {
     private HashMap<Character, String> transitions;
     

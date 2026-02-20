@@ -414,11 +414,11 @@ private DFA dfa4() {
 	dfa4.addSigma('1');
 
 	assertTrue(dfa4.addState("a"));
-	assertTrue(dfa4.setStart("a"));
-
 	assertTrue(dfa4.addState("b"));
 	assertTrue(dfa4.addState("c"));
 	assertTrue(dfa4.addState("d"));
+
+	assertTrue(dfa4.setStart("a"));
 	assertTrue(dfa4.setFinal("d"));
 
 	assertTrue(dfa4.addTransition("a", "a", '0'));
@@ -439,6 +439,13 @@ private DFA dfa4() {
 	return dfa4;
 }
 
+@Test
+public void test4_1() {
+	DFA dfa = dfa4();
+	String str = dfa.toString();
+	System.out.println(str);
+	assertNotNull(str);
+}
 
 }
 
