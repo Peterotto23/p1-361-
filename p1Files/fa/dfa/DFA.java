@@ -30,7 +30,7 @@ public class DFA implements DFAInterface {
     @Override
     public boolean setFinal(String name) {
         DFAState state = getState(name);
-        
+
         if (state == null) {
             return false;
         } else {
@@ -42,7 +42,7 @@ public class DFA implements DFAInterface {
     @Override
     public boolean setStart(String name) {
         DFAState state = getState(name);
-        
+
         if (state != null) {
             this.startState = state;
             return true;
@@ -60,7 +60,7 @@ public class DFA implements DFAInterface {
     public boolean accepts(String s) {
         char[] chars = s.toCharArray();
         DFAState currState = this.startState;
-        
+
         for (int i = 0; i < chars.length; i++) {
             currState = getState(currState.getTransition(chars[i]));
             if (currState == null) {
@@ -102,7 +102,7 @@ public class DFA implements DFAInterface {
     public boolean addTransition(String fromState, String toState, char onSymb) {
         DFAState fState = getState(fromState);
         DFAState tState = getState(toState);
-        
+
         if (fState == null || tState == null) {
             return false;
         }
@@ -118,7 +118,7 @@ public class DFA implements DFAInterface {
 
         sb.append("Q = {").append(formattedSet(this.states.toString())).append("}\n")
                 .append("Sigma = {").append(formattedSet(this.sigmas.toString())).append("}\n")
-                .append("delta tbd\n")
+                .append(generateDelta())
                 .append("q0 = ").append(this.startState.getName()).append("\n")
                 .append("F = {").append(formattedSet(this.finalStates.toString())).append("}\n");
         return sb.toString();
@@ -132,13 +132,41 @@ public class DFA implements DFAInterface {
 
     private String generateDelta() {
         StringBuilder sb = new StringBuilder();
+        sb.append("delta =\n\t");
+        Character[] sigmasArray = this.sigmas.toArray(new Character[0]);
 
+        // Write out all sigmas
+        for (int i = 0; i < this.sigmas.size(); i++) {
+            sb.append(sigmasArray[i]);
+            if (i - 1 == this.sigmas.size()) {
+                sb.append("\n");
+            } else {
+                sb.append("\t");
+            }
+        }
+        sb.append("\n");
+
+        // For each state, print the name, and then all transitions the state has
+        for (DFAState state : this.states) {
+            sb.append(state.getName()).append("\t");
+
+            // Print all of this state's transitions
+            for (int i = 0; i < this.sigmas.size(); i++) {
+                String nextState = state.getTransition(sigmasArray[i]);
+                sb.append(nextState == null ? " " : nextState);
+                if(i-1 == this.sigmas.size()) {
+                    sb.append("\n");
+                } else {
+                    sb.append("\t");
+                }
+            }
+            sb.append("\n");
+        }
         return sb.toString();
     }
 
     @Override
     public DFA swap(char symb1, char symb2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'swap'");
+        return null;
     }
 }
