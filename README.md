@@ -56,6 +56,15 @@ COMPILING AND RUNNING:
  Run the compiled class file with the command:
  $ java Class1
 
+How to compile and run on powershell: 
+javac -d bin p1Files\fa\*.java p1Files\fa\dfa\*.java
+Compiles our core .class files.
+javac -d bin -cp "bin;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar" p1Files\test\dfa\DFATest.java
+Compiles our DFATest.class
+java -cp "bin;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar" org.junit.runner.JUnitCore test.dfa.DFATest
+Runs our tests you should see an output that says: OK (19 tests). 
+The bin directory will be included with empty folders so, that you may properly create these .class files.
+
 
  Console output will give the results after the program finishes.
 
